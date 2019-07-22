@@ -10,6 +10,7 @@
 		005F6C7B1C9F4741ED9A9FEA /* Pods_LifeManage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8D3FF56FE859A919838E61 /* Pods_LifeManage.framework */; };
 		7A951FF5597A0F49285D9BB6 /* Pods_LifeManageTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430BFEF27476C58BF88CC1E4 /* Pods_LifeManageTests.framework */; };
 		93A5E63E22E2F27E006E9EF5 /* LMOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A5E63D22E2F27E006E9EF5 /* LMOrderViewController.swift */; };
+		93A5E64022E5905B006E9EF5 /* LMRepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A5E63F22E5905B006E9EF5 /* LMRepeatingTimer.swift */; };
 		93E112D722E0B5C4005A37D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E112D622E0B5C4005A37D1 /* AppDelegate.swift */; };
 		93E112D922E0B5C4005A37D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E112D822E0B5C4005A37D1 /* ViewController.swift */; };
 		93E112DC22E0B5C4005A37D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E112DA22E0B5C4005A37D1 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		80D2C30FB0CBE684DA2E6D74 /* Pods-LifeManage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeManage.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeManage/Pods-LifeManage.release.xcconfig"; sourceTree = "<group>"; };
 		93845BE4039C508754F966A3 /* Pods-LifeManageUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeManageUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeManageUITests/Pods-LifeManageUITests.release.xcconfig"; sourceTree = "<group>"; };
 		93A5E63D22E2F27E006E9EF5 /* LMOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMOrderViewController.swift; sourceTree = "<group>"; };
+		93A5E63F22E5905B006E9EF5 /* LMRepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMRepeatingTimer.swift; sourceTree = "<group>"; };
 		93E112D322E0B5C4005A37D1 /* LifeManage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeManage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E112D622E0B5C4005A37D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93E112D822E0B5C4005A37D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				93E112E522E0B5C5005A37D1 /* Info.plist */,
 				93E112DD22E0B5C4005A37D1 /* LifeManage.xcdatamodeld */,
 				93A5E63D22E2F27E006E9EF5 /* LMOrderViewController.swift */,
+				93A5E63F22E5905B006E9EF5 /* LMRepeatingTimer.swift */,
 			);
 			path = LifeManage;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 			files = (
 				93E112DF22E0B5C4005A37D1 /* LifeManage.xcdatamodeld in Sources */,
 				93E112D922E0B5C4005A37D1 /* ViewController.swift in Sources */,
+				93A5E64022E5905B006E9EF5 /* LMRepeatingTimer.swift in Sources */,
 				93E112D722E0B5C4005A37D1 /* AppDelegate.swift in Sources */,
 				93E1130822E0B907005A37D1 /* LMBigBasketOrderHandler.swift in Sources */,
 				93A5E63E22E2F27E006E9EF5 /* LMOrderViewController.swift in Sources */,

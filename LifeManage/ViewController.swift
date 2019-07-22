@@ -8,31 +8,22 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
+protocol OrderDelegate {
+    func didReceiveRemoteNotificationToOrder(fromRepeatingTimer: LMRepeatingTimer, baseURLString: String)
+}
+
+class ViewController: UIViewController, OrderDelegate {
+
 //    var object = LMBigBasketOrderHandler()
+    // Make singleton class here for big basket order
+    let repeatingTimer = LMRepeatingTimer(timeInterval: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        repeatingTimer.delegate = self
+        repeatingTimer.resume()
     }
-
-//    @IBAction func order(_ sender: Any) {
-//        object.loadURL()
-//    }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//        if segue.identifier == "OrderSegue" {
-//            let vc = segue.destination as! LMOrderViewController
-//            self.present(vc, animated: true, completion: nil)
-//            print("button pressed")
-//        }
-//    }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if (identifier == "OrderSegue") {
@@ -41,6 +32,9 @@ class ViewController: UIViewController {
         return false
     }
     
-    
+    // MARK - Order delegate methods
+    func didReceiveRemoteNotificationToOrder(fromRepeatingTimer: LMRepeatingTimer, baseURLString: String) {
+        // Call the api to order for bigbasket
+    }
 }
 
