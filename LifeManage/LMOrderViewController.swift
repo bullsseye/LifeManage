@@ -9,13 +9,13 @@
 import UIKit
 import WebKit
 
-enum Steps:Int {
-    case LoginScreen = 1
-    case OTPOrPasswordScreen = 2
-    case IntermediaryShoppingScreen = 4
-    case ShoppingScreen = 8
-    case CheckoutScreen = 16
-}
+//enum Steps:Int {
+//    case LoginScreen = 1
+//    case OTPOrPasswordScreen = 2
+//    case IntermediaryShoppingScreen = 4
+//    case ShoppingScreen = 8
+//    case CheckoutScreen = 16
+//}
 
 class LMOrderViewController: UIViewController, WKNavigationDelegate {
 

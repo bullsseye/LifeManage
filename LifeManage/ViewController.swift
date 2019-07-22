@@ -13,10 +13,14 @@ protocol OrderDelegate {
 }
 
 class ViewController: UIViewController, OrderDelegate {
-
-//    var object = LMBigBasketOrderHandler()
+    
+    private static let BigBasketOrderHandlerConst = "LMBigBasketOrderHandler"
+    private static var BigBasketBaseURL = "https://www.bigbasket.com"
+    
     // Make singleton class here for big basket order
     let repeatingTimer = LMRepeatingTimer(timeInterval: 1.0)
+//    let urlVsObjHandlerClassString = ["www.bigbasket.com": BigBasketOrderHandlerConst]
+    var urlVsObjHandler = [String: LMBigBasketOrderHandler]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +36,22 @@ class ViewController: UIViewController, OrderDelegate {
         return false
     }
     
+    func classFromClassName(Class: String) -> LMBigBasketOrderHandler? {
+        if (Class == ViewController.BigBasketOrderHandlerConst) {
+            return LMBigBasketOrderHandler()
+        }
+        return nil
+    }
+    
     // MARK - Order delegate methods
     func didReceiveRemoteNotificationToOrder(fromRepeatingTimer: LMRepeatingTimer, baseURLString: String) {
         // Call the api to order for bigbasket
+        var bigBasketObject = self.urlVsObjHandler[baseURLString]
+        if (bigBasketObject == nil) {
+            bigBasketObject = LMBigBasketOrderHandler()
+            self.urlVsObjHandler[baseURLString] = bigBasketObject
+        }
+        bigBasketObject?.loadURL(url: ViewController.BigBasketBaseURL)
     }
 }
 
