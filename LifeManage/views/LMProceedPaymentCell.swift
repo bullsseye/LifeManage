@@ -10,6 +10,8 @@ import UIKit
 
 class LMProceedPaymentCell: UITableViewCell {
     @IBOutlet var eventLabel: UILabel!
+    @IBOutlet var img: UIImageView!
+    @IBOutlet var payButton: UIButton!
     
     var delegate: RequestPaymentDelegate?
     var baseURLString: String?
@@ -17,6 +19,7 @@ class LMProceedPaymentCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        NotificationCenter.default.addObserver(self, selector: #selector(didCompletePayment), name: Notification.Name.PaymentDoneNotification, object: nil)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,5 +32,19 @@ class LMProceedPaymentCell: UITableViewCell {
         assert(self.baseURLString != nil)
         assert(self.delegate != nil)
         self.delegate!.confirmOrderForPayment(fromCell: self, baseURLString: self.baseURLString!)
+    }
+    
+    @objc func didCompletePayment(_ notification: Notification) {
+        let urlString: String? = notification.userInfo?["url"] as! String?
+        if (urlString != nil && urlString! == self.baseURLString) {
+//            let imageView = UIImageView.init(image: UIImage.init(named: "done"))
+            self.img.image = UIImage.init(named: "done")
+            self.payButton.isEnabled = false
+            self.payButton.setTitle("Paid", for: UIControl.State.disabled)
+            self.img.setNeedsDisplay()
+            self.img.setNeedsLayout()
+            self.imageView?.setNeedsDisplay()
+            self.imageView?.setNeedsLayout()
+        }
     }
 }

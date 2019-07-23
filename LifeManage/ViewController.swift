@@ -20,10 +20,15 @@ protocol RequestPaymentDelegate {
     func didPlaceOrder(fromOrderViewController: LMOrderViewController, baseURLString: String)
 }
 
+extension NSNotification.Name {
+    public static let PaymentDoneNotification = Notification.Name("PaymentDoneNotification")
+}
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, OrderDelegate, RequestPaymentDelegate {
     
     private static let BigBasketOrderHandlerConst = "LMBigBasketOrderHandler"
-    private static var BigBasketBaseURL = "https://www.bigbasket.com"
+//    private static var BigBasketBaseURL = "https://www.bigbasket.com"
+    private static let PendingPaymentsHeading = "Pending Payments"
     
 
     @IBOutlet var orderTableView: UITableView!
@@ -41,6 +46,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.orderTableView.register(UINib(nibName: "LMProceedPaymentCell", bundle: nil), forCellReuseIdentifier: "LMProceedPaymentCell")
         self.orderTableView.delegate = self
         self.orderTableView.dataSource = self
+        
+        self.orderTableView.backgroundColor = UIColor.clear
+        self.orderTableView.isOpaque = false
+        let imageView = UIImageView.init(image: UIImage.init(named: "allDone"))
+        imageView.frame = self.orderTableView.frame
+        self.orderTableView.backgroundView = imageView
         
         repeatingTimer.delegate = self
         repeatingTimer.resume()
@@ -88,25 +99,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func didPlaceOrder(fromOrderViewController: LMOrderViewController, baseURLString: String) {
         // Post a notification here with baseURLString that the order is placed.
-        print("Did something great in life")
-        _ = self.proceedToPaymentData.popLast()
-        self.orderTableView.reloadData()
+        NotificationCenter.default.post(name: Notification.Name.PaymentDoneNotification,
+                                        object: self,
+                                        userInfo: ["url": LMBigBasketOrderHandler.BigBasketBaseURL])
         self.navigationController?.popToRootViewController(animated: true)
     }
     
     // MARK - TableViewDelegate methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (self.proceedToPaymentData.count > 0) {
+            self.orderTableView.backgroundView = nil
+        }
         return self.proceedToPaymentData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let proceedToPaymentCell = self.orderTableView.dequeueReusableCell(withIdentifier: "LMProceedPaymentCell", for: indexPath) as! LMProceedPaymentCell
-        proceedToPaymentCell.eventLabel.text = "Order grocery items"
+        proceedToPaymentCell.eventLabel.text = "Groceries"
         proceedToPaymentCell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         // Right now I have hardcoded the baseURL but this data should come from the server eventually
         proceedToPaymentCell.baseURLString = LMBigBasketOrderHandler.BigBasketBaseURL
         proceedToPaymentCell.delegate = self
         return proceedToPaymentCell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return ViewController.PendingPaymentsHeading
     }
 }
 
