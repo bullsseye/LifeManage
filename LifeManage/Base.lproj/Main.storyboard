@@ -22,18 +22,28 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="allDone" translatesAutoresizingMaskIntoConstraints="NO" id="6pR-SH-ISg">
+                                <rect key="frame" x="95" y="273" width="185" height="185"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="185" id="CjV-3l-GpG"/>
+                                    <constraint firstAttribute="width" constant="185" id="njw-f4-FQS"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="59V-d7-7La" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5uL-w6-XJi"/>
+                            <constraint firstItem="6pR-SH-ISg" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="LiJ-KV-LXc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="59V-d7-7La" secondAttribute="trailing" id="hYM-pX-x7o"/>
                             <constraint firstItem="59V-d7-7La" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ivG-qO-MeF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="59V-d7-7La" secondAttribute="bottom" id="p82-bN-GbK"/>
+                            <constraint firstItem="6pR-SH-ISg" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="vPz-MT-vDz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="8vU-1m-UjQ"/>
                     <connections>
+                        <outlet property="allDoneImageView" destination="6pR-SH-ISg" id="LRn-2g-KrB"/>
                         <outlet property="orderTableView" destination="59V-d7-7La" id="NdA-5X-etM"/>
                     </connections>
                 </viewController>
@@ -98,4 +108,7 @@
             <point key="canvasLocation" x="-551.20000000000005" y="-9.4452773613193415"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="allDone" width="120" height="120"/>
+    </resources>
 </document>

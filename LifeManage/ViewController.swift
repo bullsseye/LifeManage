@@ -27,12 +27,12 @@ extension NSNotification.Name {
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, OrderDelegate, RequestPaymentDelegate {
     
     private static let BigBasketOrderHandlerConst = "LMBigBasketOrderHandler"
-//    private static var BigBasketBaseURL = "https://www.bigbasket.com"
     private static let PendingPaymentsHeading = "Pending Payments"
     
 
     @IBOutlet var orderTableView: UITableView!
     
+    @IBOutlet var allDoneImageView: UIImageView!
     private var proceedToPaymentData = [String]()
     let repeatingTimer = LMRepeatingTimer(timeInterval: 1.0)
     
@@ -49,9 +49,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.orderTableView.backgroundColor = UIColor.clear
         self.orderTableView.isOpaque = false
-        let imageView = UIImageView.init(image: UIImage.init(named: "allDone"))
-        imageView.frame = self.orderTableView.frame
-        self.orderTableView.backgroundView = imageView
+        self.allDoneImageView.isHidden = true
         
         repeatingTimer.delegate = self
         repeatingTimer.resume()
@@ -109,6 +107,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (self.proceedToPaymentData.count > 0) {
             self.orderTableView.backgroundView = nil
+            self.allDoneImageView.isHidden = true
+            self.orderTableView.isHidden = false
+        } else {
+            self.allDoneImageView.isHidden = false
         }
         return self.proceedToPaymentData.count
     }
