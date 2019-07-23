@@ -17,14 +17,16 @@ enum Steps:Int {
     case CheckoutScreen = 16
 }
 
-class LMBigBasketOrderHandler: NSObject, WKNavigationDelegate {
+class LMBigBasketOrderHandler: NSObject, LMOrderHandler, WKNavigationDelegate {
+    
+    var delegate: RequestPaymentDelegate?
     var wkWebView: WKWebView!
     var step = Steps.IntermediaryShoppingScreen
     
     private static var ClassnameForAddButton = "_2LV8c"
-    private static var BigBasketBaseURL = "https://www.bigbasket.com"
-    private static var BigBasketCheckoutURL = LMBigBasketOrderHandler.BigBasketBaseURL + "/co/checkout/"
-    private static var BigBasketQueryURL = LMBigBasketOrderHandler.BigBasketBaseURL + "/ps/?q="
+    private(set) static var BigBasketBaseURL = "https://www.bigbasket.com"
+    private(set) static var BigBasketCheckoutURL = LMBigBasketOrderHandler.BigBasketBaseURL + "/co/checkout/"
+    private(set) static var BigBasketQueryURL = LMBigBasketOrderHandler.BigBasketBaseURL + "/ps/?q="
     private var thingsToOrder = ["grapes", "apple", "banana"]
     private var index = 0
     
@@ -70,19 +72,29 @@ class LMBigBasketOrderHandler: NSObject, WKNavigationDelegate {
                 }
             }
         } else if (self.step == Steps.CheckoutScreen) {
-            self.wkWebView.evaluateJavaScript("document.documentElement.outerHTML.toString()") { (html: Any?, error: Error?) in
-                if (error == nil) {
-                    print(html!)
-                } else {
-                    print(error!)
-                }
+//            self.wkWebView.evaluateJavaScript("document.documentElement.outerHTML.toString()") { (html: Any?, error: Error?) in
+//                if (error == nil) {
+//                    print(html!)
+//                } else {
+//                    print(error!)
+//                }
+//            }
+            if (self.delegate != nil) {
+                self.delegate!.didRequestPaymentForOrderToComplete(fromOrderHandler: self)
             }
         }
     }
     
-    func loadURL(url: String) {
-        let myURL = URL(string:url)
+    func loadURL(url: String?) {
+        let myURL = URL(string:(url == nil ? LMBigBasketOrderHandler.BigBasketBaseURL : url!))
         let myRequest = URLRequest(url: myURL!)
         self.wkWebView.load(myRequest)
+    }
+    
+    // This method is a mock to test the tableView
+    func callTheDelegateMethod() {
+        if (self.delegate != nil) {
+            self.delegate!.didRequestPaymentForOrderToComplete(fromOrderHandler: self)
+        }
     }
 }

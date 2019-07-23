@@ -12,28 +12,38 @@ protocol OrderDelegate {
     func didReceiveRemoteNotificationToOrder(fromRepeatingTimer: LMRepeatingTimer, baseURLString: String)
 }
 
-class ViewController: UIViewController, OrderDelegate {
+protocol RequestPaymentDelegate {
+    func didRequestPaymentForOrderToComplete(fromOrderHandler: LMOrderHandler)
+    
+    func confirmOrderForPayment(fromCell: LMProceedPaymentCell, baseURLString: String)
+    
+    func didPlaceOrder(fromOrderViewController: LMOrderViewController, baseURLString: String)
+}
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, OrderDelegate, RequestPaymentDelegate {
     
     private static let BigBasketOrderHandlerConst = "LMBigBasketOrderHandler"
     private static var BigBasketBaseURL = "https://www.bigbasket.com"
     
-    // Make singleton class here for big basket order
+
+    @IBOutlet var orderTableView: UITableView!
+    
+    private var proceedToPaymentData = [String]()
     let repeatingTimer = LMRepeatingTimer(timeInterval: 1.0)
-//    let urlVsObjHandlerClassString = ["www.bigbasket.com": BigBasketOrderHandlerConst]
-    var urlVsObjHandler = [String: LMBigBasketOrderHandler]()
+    
+    // let urlVsObjHandlerClassString = ["www.bigbasket.com": BigBasketOrderHandlerConst]
+    var urlVsObjHandler = [String: LMOrderHandler]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.orderTableView.register(UINib(nibName: "LMProceedPaymentCell", bundle: nil), forCellReuseIdentifier: "LMProceedPaymentCell")
+        self.orderTableView.delegate = self
+        self.orderTableView.dataSource = self
+        
         repeatingTimer.delegate = self
         repeatingTimer.resume()
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if (identifier == "OrderSegue") {
-            return true
-        }
-        return false
     }
     
     func classFromClassName(Class: String) -> LMBigBasketOrderHandler? {
@@ -45,13 +55,58 @@ class ViewController: UIViewController, OrderDelegate {
     
     // MARK - Order delegate methods
     func didReceiveRemoteNotificationToOrder(fromRepeatingTimer: LMRepeatingTimer, baseURLString: String) {
-        // Call the api to order for bigbasket
+        
         var bigBasketObject = self.urlVsObjHandler[baseURLString]
         if (bigBasketObject == nil) {
+            // Use checks to understand the object that needs to be created. It may not be just bigBasketHandlerObject.
             bigBasketObject = LMBigBasketOrderHandler()
+            bigBasketObject?.delegate = self
             self.urlVsObjHandler[baseURLString] = bigBasketObject
         }
-        bigBasketObject?.loadURL(url: ViewController.BigBasketBaseURL)
+        // FIXME: (ramang) Use loadURL only. Remove callTheDelegateMethod, it is just for testing purpose.
+//        bigBasketObject?.loadURL(url: nil)
+        let obj = bigBasketObject as! LMBigBasketOrderHandler
+        obj.callTheDelegateMethod()
+    }
+    
+    // MARK - Request payment delegate method
+    func didRequestPaymentForOrderToComplete(fromOrderHandler: LMOrderHandler) {
+        // Think of what can be appended below
+        self.proceedToPaymentData.append("bigBasket")
+        self.orderTableView.reloadData()
+    }
+    
+    func confirmOrderForPayment(fromCell: LMProceedPaymentCell, baseURLString: String) {
+        // Right now I am hardcoding the checkout call. But it should be dynamic to load
+        // the webpage when required
+        let checkoutViewController = self.storyboard?.instantiateViewController(withIdentifier: "LMOrderViewController") as! LMOrderViewController
+        // Below checkoutURL should be based on baseURLString
+        checkoutViewController.urlString = LMBigBasketOrderHandler.BigBasketCheckoutURL
+        checkoutViewController.delegate = self
+        self.navigationController?.pushViewController(checkoutViewController, animated: true)
+    }
+    
+    func didPlaceOrder(fromOrderViewController: LMOrderViewController, baseURLString: String) {
+        // Post a notification here with baseURLString that the order is placed.
+        print("Did something great in life")
+        _ = self.proceedToPaymentData.popLast()
+        self.orderTableView.reloadData()
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    // MARK - TableViewDelegate methods
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.proceedToPaymentData.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let proceedToPaymentCell = self.orderTableView.dequeueReusableCell(withIdentifier: "LMProceedPaymentCell", for: indexPath) as! LMProceedPaymentCell
+        proceedToPaymentCell.eventLabel.text = "Order grocery items"
+        proceedToPaymentCell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+        // Right now I have hardcoded the baseURL but this data should come from the server eventually
+        proceedToPaymentCell.baseURLString = LMBigBasketOrderHandler.BigBasketBaseURL
+        proceedToPaymentCell.delegate = self
+        return proceedToPaymentCell
     }
 }
 

@@ -11,6 +11,9 @@
 		7A951FF5597A0F49285D9BB6 /* Pods_LifeManageTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430BFEF27476C58BF88CC1E4 /* Pods_LifeManageTests.framework */; };
 		93A5E63E22E2F27E006E9EF5 /* LMOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A5E63D22E2F27E006E9EF5 /* LMOrderViewController.swift */; };
 		93A5E64022E5905B006E9EF5 /* LMRepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A5E63F22E5905B006E9EF5 /* LMRepeatingTimer.swift */; };
+		93A5E64222E5A9D9006E9EF5 /* LMOrderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A5E64122E5A9D9006E9EF5 /* LMOrderHandler.swift */; };
+		93A5E64522E5B38B006E9EF5 /* LMProceedPaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A5E64322E5B38B006E9EF5 /* LMProceedPaymentCell.swift */; };
+		93A5E64622E5B38B006E9EF5 /* LMProceedPaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93A5E64422E5B38B006E9EF5 /* LMProceedPaymentCell.xib */; };
 		93E112D722E0B5C4005A37D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E112D622E0B5C4005A37D1 /* AppDelegate.swift */; };
 		93E112D922E0B5C4005A37D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E112D822E0B5C4005A37D1 /* ViewController.swift */; };
 		93E112DC22E0B5C4005A37D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E112DA22E0B5C4005A37D1 /* Main.storyboard */; };
@@ -50,6 +53,9 @@
 		93845BE4039C508754F966A3 /* Pods-LifeManageUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeManageUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeManageUITests/Pods-LifeManageUITests.release.xcconfig"; sourceTree = "<group>"; };
 		93A5E63D22E2F27E006E9EF5 /* LMOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMOrderViewController.swift; sourceTree = "<group>"; };
 		93A5E63F22E5905B006E9EF5 /* LMRepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMRepeatingTimer.swift; sourceTree = "<group>"; };
+		93A5E64122E5A9D9006E9EF5 /* LMOrderHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMOrderHandler.swift; sourceTree = "<group>"; };
+		93A5E64322E5B38B006E9EF5 /* LMProceedPaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMProceedPaymentCell.swift; sourceTree = "<group>"; };
+		93A5E64422E5B38B006E9EF5 /* LMProceedPaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LMProceedPaymentCell.xib; sourceTree = "<group>"; };
 		93E112D322E0B5C4005A37D1 /* LifeManage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeManage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E112D622E0B5C4005A37D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93E112D822E0B5C4005A37D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +113,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		93A5E64722E5B395006E9EF5 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				93A5E64322E5B38B006E9EF5 /* LMProceedPaymentCell.swift */,
+				93A5E64422E5B38B006E9EF5 /* LMProceedPaymentCell.xib */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		93E112CA22E0B5C3005A37D1 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +147,7 @@
 		93E112D522E0B5C4005A37D1 /* LifeManage */ = {
 			isa = PBXGroup;
 			children = (
+				93A5E64722E5B395006E9EF5 /* views */,
 				93E112D622E0B5C4005A37D1 /* AppDelegate.swift */,
 				93E1130722E0B907005A37D1 /* LMBigBasketOrderHandler.swift */,
 				93E112D822E0B5C4005A37D1 /* ViewController.swift */,
@@ -142,6 +158,7 @@
 				93E112DD22E0B5C4005A37D1 /* LifeManage.xcdatamodeld */,
 				93A5E63D22E2F27E006E9EF5 /* LMOrderViewController.swift */,
 				93A5E63F22E5905B006E9EF5 /* LMRepeatingTimer.swift */,
+				93A5E64122E5A9D9006E9EF5 /* LMOrderHandler.swift */,
 			);
 			path = LifeManage;
 			sourceTree = "<group>";
@@ -287,6 +304,7 @@
 			files = (
 				93E112E422E0B5C5005A37D1 /* LaunchScreen.storyboard in Resources */,
 				93E112E122E0B5C5005A37D1 /* Assets.xcassets in Resources */,
+				93A5E64622E5B38B006E9EF5 /* LMProceedPaymentCell.xib in Resources */,
 				93E112DC22E0B5C4005A37D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,9 +423,11 @@
 			files = (
 				93E112DF22E0B5C4005A37D1 /* LifeManage.xcdatamodeld in Sources */,
 				93E112D922E0B5C4005A37D1 /* ViewController.swift in Sources */,
+				93A5E64222E5A9D9006E9EF5 /* LMOrderHandler.swift in Sources */,
 				93A5E64022E5905B006E9EF5 /* LMRepeatingTimer.swift in Sources */,
 				93E112D722E0B5C4005A37D1 /* AppDelegate.swift in Sources */,
 				93E1130822E0B907005A37D1 /* LMBigBasketOrderHandler.swift in Sources */,
+				93A5E64522E5B38B006E9EF5 /* LMProceedPaymentCell.swift in Sources */,
 				93A5E63E22E2F27E006E9EF5 /* LMOrderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
